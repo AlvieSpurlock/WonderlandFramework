@@ -1,0 +1,41 @@
+//-------------[ConsoleTest.cpp]-------------//
+Order Of Function
+1. Give User List Of Available Features To Test
+
+2A. User Picks One From List
+3A. Load Feature Test Count Success/Failure Ratio
+4A. Load Notes Directory
+
+5C. User Chooses Notes from Directory
+6C. Display Notes
+7C. User Closes Out Of Notes
+8C. Display Notes Directory
+
+5A. Display Them
+6A. Run Test
+7A. User Dictates Success or Failure
+8A. User Provides Notes for Reasoning
+9A. Update Ratio
+10A. Prompt Retest, Different Feature Test, End Program
+
+2B. User Chooses to Add New Feature
+3B. Prompt for Feature Name and One Sentence Purpose
+4B. Add To TestLog.csv
+5B. Run Test
+6B. User Dictates Success or Failure
+7B. User Provides Notes for Reasoning
+8B. Save Notes with "[Feature Name].txt"
+8B. Update Ratio
+9B. Prompt Retest, Different Feature Test, End Program
+
+[---{Requirements}---]
+1. Console Printing: UI
+2. File IO: Loading, Saving TestLog.csv & Test Notes
+
+[---{TestLog.csv Layout}---]
+[Feature Name]--[Test #]--[Success #]--[Failure #]--[Location of Notes Directory]
+
+[---{Possible Helper Files}---]
+1. TestLog.csv Helper: Loads and Displays Feature Info, Saves to File
+2. Test Notes Helper: Loads and Displays Notes Text, Saves File to Proper Directory
+3. UI Helper: Makes UI
