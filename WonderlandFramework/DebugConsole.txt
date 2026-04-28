@@ -1,0 +1,46 @@
+2026-04-27 14:42:47
+
+Might not be if this
+stupid note doesn't
+properly save.
+
+
+2026-04-28 02:28:25
+
+The previous one was
+actually partial however,
+I am now manifesting again
+for a bug I created in the
+notes system! Here's
+hoping!
+
+
+2026-04-28 02:30:53
+
+Just making sure that the
+Notes are properly saving.
+Better to be safe then
+sorry!
+
+
+2026-04-28 02:34:30
+
+It was a failure.
+RESOUNDING failure before!
+This time I'm hoping for
+success but adding new
+notes just cleared the
+notes file rather than
+appending which could've
+been VERY bad.
+
+
+2026-04-28 02:36:20
+
+IT WAS ACTUALLY A
+SUCCESS!! I just made a
+mistake when opening the
+file! That said, on to
+make new features!
+
+

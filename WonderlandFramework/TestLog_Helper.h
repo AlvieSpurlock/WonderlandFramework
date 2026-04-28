@@ -11,24 +11,50 @@ class TestLog_Helper
 public:
 	std::vector<Feature> Features; //Vector of Features
 	Test_UI_Helper* UI = nullptr;
-	
+
 	//-----[Obligatory]-----\\
 	//Constructor & Deconstructor
-	
-	TestLog_Helper() { UI = new Test_UI_Helper(); } 
+
+	TestLog_Helper() { UI = new Test_UI_Helper(); }
 	~TestLog_Helper() { delete UI; }
-	
+
 
 	//-----[Save Test Log Function]-----\\
     //Saves the TestLog.csv for Persistance
 
-	void SaveTestLog()
+	void SaveTestLog(Feature& F)
 	{
-		std::ofstream TestLog("TestLog.csv", std::ios::app);
-		Feature& F = Features.back();
-		TestLog << F.Name << "," << F.TestCount << "," << F.SuccessCount << "," << F.FailureCount << "\n";
+		std::ifstream TestLogIn("TestLog.csv");
+		std::vector<std::string> Lines;
+		bool Found = false;
+		std::string Line;
+		while (std::getline(TestLogIn, Line))
+		{
+			std::stringstream Info(Line);
+			std::string FirstField;
+			std::getline(Info, FirstField, ',');
+			if (FirstField == F.Name)
+			{
+				Lines.push_back(F.Name + "," + std::to_string(F.TestCount) + "," + std::to_string(F.SuccessCount) + "," + std::to_string(F.FailureCount));
+				Found = true;
+			}
+			else
+			{ Lines.push_back(Line); }
+		}
+		TestLogIn.close();
+		if (Found)
+		{
+			std::ofstream TestLogOut("TestLog.csv", std::ios::trunc);
+			for (auto& L : Lines)
+			{ TestLogOut << L << "\n"; }
+		}
+		else
+		{
+			std::ofstream TestLogOut("TestLog.csv", std::ios::app);
+			TestLogOut << F.Name << "," << F.TestCount << "," << F.SuccessCount << "," << F.FailureCount << "\n";
+		}
 	}
-	
+
 
 	//-----[Feature Creation]-----\\
 	//Used for Loading Features and related data as 
@@ -49,16 +75,21 @@ public:
 		Features.push_back(newFeature);
 		if (IsNew)
 		{
-			SaveTestLog();
-			std::string NotesPath = newFeature.Directory.substr(0, newFeature.Directory.size() - 4) + ".txt";
-			std::ofstream NotesFile(NotesPath);
-			NotesFile.close();
+			SaveTestLog(Features.back());
+			std::string NotesPath = newFeature.Directory;
+			std::ifstream CheckFile(NotesPath);
+			
+			if (!CheckFile.good())
+			{
+				std::ofstream NotesFile(NotesPath);
+				NotesFile.close();
+			}
 		}
 	}
 
 
 	//-----[Load File]-----\\
-	
+
 	void LoadTestLog()
 	{
 		std::ifstream TestLog("TestLog.csv");
@@ -69,9 +100,7 @@ public:
 			std::cin >> Answer;
 			Answer = (char)std::toupper(static_cast<unsigned char>(Answer));
 			if (Answer == 'Y')
-			{
-				MakeFeature("", 0, 0, 0, true);
-			}
+			{ MakeFeature("", 0, 0, 0, true); }
 			else
 			{
 				if (Answer == 'N')
@@ -95,13 +124,9 @@ public:
 				std::string Data;
 				std::vector<std::string> FeatureInfo;
 				while (std::getline(Info, Data, ','))
-				{
-					FeatureInfo.push_back(Data);
-				}
+				{ FeatureInfo.push_back(Data); }
 				if (FeatureInfo.size() >= 4)
-				{
-					MakeFeature(FeatureInfo[0], stoi(FeatureInfo[1]), stoi(FeatureInfo[2]), stoi(FeatureInfo[3]), false);
-				}
+				{ MakeFeature(FeatureInfo[0], stoi(FeatureInfo[1]), stoi(FeatureInfo[2]), stoi(FeatureInfo[3]), false); }
 			}
 		}
 	}

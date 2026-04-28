@@ -8,6 +8,7 @@
 #include <iostream>
 #include <limits>
 
+
 class Test_UI_Helper
 {
 public:
@@ -19,11 +20,11 @@ public:
 
     static void PrintFeatures(const std::vector<Feature>& vF)
     {
+        std::cout << "||Feature Name||Test Count||Success Count||Failure Count||Note Directory||" << std::endl;
         for (size_t index = 0, count = vF.size(); index < count; ++index)
-        {
-            std::cout << index + 1 << ".)" << "||" << vF[index].Name << "||" << vF[index].TestCount << "||" << vF[index].SuccessCount << "/" << vF[index].FailureCount << "||" << vF[index].Directory << "||" << std::endl;
-        }
+        { std::cout << index + 1 << ".)" << "||" << vF[index].Name << "||" << vF[index].TestCount << "||" << vF[index].SuccessCount << "/" << vF[index].FailureCount << "||" << vF[index].Directory << "||" << std::endl; }
     }
+
 
     //-----[Display Note Dates Function]-----\\
     //Displays the Dates in the Notes for the User to Select
@@ -31,14 +32,13 @@ public:
     static void DisplayNoteDates(const std::vector<NoteEntry> Notes)
     {
         for (size_t i = 0; i < Notes.size(); ++i)
-        {
-            std::cout << i + 1 << ".) " << Notes[i].Timestamp << "\n";
-        }
+        { std::cout << i + 1 << ".) " << Notes[i].Timestamp << "\n"; }
     }
+
 
     //-----[Get User Selection Function]-----\\
     //Prompts, Receives, and Verifies User Input for Choice Based Interaction
-
+   
     static int GetUserSelection(int Max)
     {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -49,9 +49,7 @@ public:
             if (std::cin >> Choice)
             {
                 if (Choice >= 1 && Choice <= Max)
-                {
-                    return Choice - 1;
-                }
+                { return Choice - 1; }
                 std::cout << "Invalid Selection!\n";
             }
             else
@@ -63,20 +61,22 @@ public:
         }
     }
 
+
     //-----[Display Note Function]-----\\
     //Displays the Chosen Note
-
+    
     static void DisplayNote(const NoteEntry N)
     {
         std::cout << "\n----- " << N.Timestamp << " -----\n";
         std::cout << N.Text << "\n";
     }
-
+   
+    
     //-----[View Notes Function]-----\\
     //Runs the Display Note Dates and Display Note Functions
     //as well as any other required Functions to let the 
     //User view their notes
-
+   
     static void ViewNotes(const std::string& Directory)
     {
         TestNotes_Helper* TN = new TestNotes_Helper();
@@ -91,8 +91,8 @@ public:
         DisplayNote(Notes[index]);
         delete TN;
     }
-
-
+   
+    
     void TestEnd(Feature& F)
     {
         std::cout << "Success or Failure?\nS = Success, F = Failure\n";
@@ -100,22 +100,29 @@ public:
         std::cin >> Answer;
         Answer = (char)std::toupper(static_cast<unsigned char>(Answer));
         if (Answer == 'S')
-        { UpdateFeature(F, true); }
+        {
+            UpdateFeature(F, true);
+        }
         else
         {
             if (Answer == 'F')
-            { UpdateFeature(F, false); }
+            {
+                UpdateFeature(F, false);
+            }
             else
-            { std::cout << "Invalid Output\n"; }
+            {
+                std::cout << "Invalid Output\n";
+            }
         }
     }
+    
+    
     void UpdateFeature(Feature& F, bool Success)
     {
-        std::string Directory = F.Name + ".txt";
         TestNotes_Helper* TN = new TestNotes_Helper();
         F.TestCount += 1;
-        if (Success) { F.SuccessCount += 1; TN->MakeNotes("Success", Directory); }
-        else { F.FailureCount += 1; TN->MakeNotes("Failure", Directory); }
+        if (Success) { F.SuccessCount += 1; TN->MakeNotes("Success", F.Directory); }
+        else { F.FailureCount += 1; TN->MakeNotes("Failure", F.Directory); }
         delete TN;
     }
 };

@@ -24,19 +24,18 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
         std::cout << "Which Feature are we testing today?\n";
         UI->PrintFeatures(TL->Features);
         int Choice = UI->GetUserSelection(TL->Features.size());
-
-        switch(Choice)
+        switch (Choice)
         {
         case 0:
             UI->TestEnd(TL->Features[Choice]);
+            TL->SaveTestLog(TL->Features[Choice]);
             break;
-
         case 1:
             Character * Hero = new Character("Hero", 100, 7 + (rand() % (15 - 7 + 1)));
             Character* Villain = new Character("Villain", 100, 7 + (rand() % (15 - 7 + 1)));
-            
+
             bool LoopSwitch = true;
-            
+
             while (Hero->GetCurrHealth() > 0 && Villain->GetCurrHealth() > 0)
             {
                 if (LoopSwitch)
@@ -45,6 +44,7 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
                 LoopSwitch = !LoopSwitch;
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
             } UI->TestEnd(TL->Features[Choice]);
+            TL->SaveTestLog(TL->Features[Choice]);
             break;
         }
     }
@@ -74,9 +74,9 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
     }
 }
 
+
 //-----[Main]-----\\
 //Used to run the Debug Console itself
-
 int main()
 {
     TestLog_Helper* TL = new TestLog_Helper();

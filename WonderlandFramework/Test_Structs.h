@@ -14,6 +14,7 @@ struct NoteEntry
 };
 
 
+
 //-----[Feature Struct]-----\\
 
 struct Feature
@@ -25,6 +26,7 @@ struct Feature
 	std::string Directory;
 	Feature() {} //Obligitory Default Constructor
 
+
 	//-----[Actual Feature Constructor]-----\\
 
 	Feature(std::string N, int TC, int SC, int FC)
@@ -35,6 +37,6 @@ struct Feature
 		FailureCount = FC;
 		std::string NoSpaces = N;
 		NoSpaces.erase(std::remove(NoSpaces.begin(), NoSpaces.end(), ' '), NoSpaces.end());
-		Directory = "...\\" + NoSpaces + ".csv";
+		Directory = NoSpaces + ".txt"; 
 	}
 };
