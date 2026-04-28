@@ -68,3 +68,44 @@ It will call Death Function
 
 [---{Death Function}---]
 Prints to Console -- [Character Name] is DEAD!
+
+||-------------[Basic Weapon Class]-------------||
+//-------------[Weapon Values]-------------//
+Weapon Name
+
+MaxDurability
+CurrDurability
+DurabilityPercentage
+
+BaseDamageMulti
+EffectiveDamageMulti
+
+IsImmortal
+IsBroken
+IsDynamic
+
+//-------------[Update Durabilty]-------------//
+Checks if IsImmortal is True...
+If IsImmortal is False...
+Takes Damage Param
+Takes Durability Value and subtracts it by Damage Param
+Checks if Durability is Greater Than 0
+If Durability is Greater Than 0...
+Check if IsDynamic is True
+If IsDynamic is True...
+Multiply BaseDamageMulti by DurabilityPercentage and set EffectiveDamageMulti as the result
+IsDynamic is False...
+Do Nothing
+If Durability is not Greater Than 0...
+IsBroken = True
+If Durability is not Greater Than or Less Than 0...
+It will Update Durability Percentage by Divided Curr Durability by Max Durability
+If IsImmortal is True...
+Do Nothing
+
+//-------------[Brake Handing]-------------//
+When Character Hits, check if IsBroken is False
+If False...
+Apply Damage Multi
+If True...
+Don't Apply Damage Multi

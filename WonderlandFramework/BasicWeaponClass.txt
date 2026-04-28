@@ -1,0 +1,40 @@
+2026-04-28 04:33:51
+
+There is a durability
+issue. Also, a Debug
+Console Printing issue.
+The Fragility is causing
+Durability Damage Issues
+which is causing the
+weapon to break sooner
+which could be
+problematic.
+
+
+2026-04-28 04:35:54
+
+This could be a simple RNG
+issue. I will test that
+out and see if it fixes
+the problem!
+
+
+2026-04-28 04:40:06
+
+Now I see the issue also
+has to do with the damage
+multi itself. I can solve
+this!
+
+
+2026-04-28 04:43:43
+
+So apparantly is WAS
+working and IS, I was just
+forgetting to take the
+dynamic damage in relation
+to durability. Which is a
+little annoying of me but
+hey, I figured it out!
+
+

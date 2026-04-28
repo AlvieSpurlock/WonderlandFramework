@@ -5,9 +5,11 @@
 #include "TestNotes_Helper.h"
 #include "Test_UI_Helper.h"
 #include "Character.h"
+#include "Weapon.h"
 
 #include <thread>
 #include <chrono>
+#include <random>
 
 
 //-----[User Unput Loop]-----\\
@@ -31,21 +33,68 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
             TL->SaveTestLog(TL->Features[Choice]);
             break;
         case 1:
-            Character * Hero = new Character("Hero", 100, 7 + (rand() % (15 - 7 + 1)));
-            Character* Villain = new Character("Villain", 100, 7 + (rand() % (15 - 7 + 1)));
-
+        {
+            static std::mt19937 RNG(std::random_device{}());
+            std::uniform_int_distribution<int> Dist(7, 15);
+            Character* Hero = new Character("Hero", 100, Dist(RNG));
+            Character* Villain = new Character("Villain", 100, Dist(RNG));
             bool LoopSwitch = true;
-
             while (Hero->GetCurrHealth() > 0 && Villain->GetCurrHealth() > 0)
             {
-                if (LoopSwitch)
-                { Hero->Hit(Villain); }
+                if (LoopSwitch) { Hero->Hit(Villain); }
                 else { Villain->Hit(Hero); }
                 LoopSwitch = !LoopSwitch;
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
             } UI->TestEnd(TL->Features[Choice]);
             TL->SaveTestLog(TL->Features[Choice]);
+            delete Hero;
+            delete Villain;
             break;
+        }
+        case 2:
+        {
+            static std::mt19937 wRNG(std::random_device{}());
+            std::uniform_int_distribution<float> wdDist(1.25f, 2.5f);
+            std::uniform_real_distribution<float> wfDist(0.1f, 1.25f);
+
+            Weapon* HeroWeapon = new Weapon("Hero Weapon", 100, wdDist(wRNG), wfDist(wRNG), false, false, true, false, true);
+            Weapon* VillainWeapon = new Weapon("Villain Weapon", 100, wdDist(wRNG), wfDist(wRNG), false, false, true, false, true);
+
+            static std::mt19937 RNG(std::random_device{}());
+            std::uniform_int_distribution<int> Dist(7, 15);
+
+            CombatCharacter* Hero = new CombatCharacter("Hero", 100, Dist(RNG), *HeroWeapon);
+            CombatCharacter* Villain = new CombatCharacter("Villain", 100, Dist(RNG), *VillainWeapon);
+
+            bool LoopSwitch = true;
+            for (size_t index = 0; index < 3; ++index)
+            {
+                if (Hero->GetCurrHealth() > 0 && Villain->GetCurrHealth() > 0)
+                {
+                    if (LoopSwitch) 
+                    { 
+                        Hero->Hit(Villain); 
+                        std::cout << "Hero Weapon Fragility: " << Hero->GetWeapon()->GetFragility() << "\n";
+                    }
+                    else 
+                    { 
+                        Villain->Hit(Hero); 
+                        std::cout << "Villain Weapon Fragility: " << Hero->GetWeapon()->GetFragility() << "\n";
+                    }
+                    
+                    LoopSwitch = !LoopSwitch;
+                    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                }
+            }
+
+            UI->TestEnd(TL->Features[Choice]);
+            TL->SaveTestLog(TL->Features[Choice]);
+            delete Hero;
+            delete Villain;
+            delete HeroWeapon;
+            delete VillainWeapon;
+            break;
+        }
         }
     }
     else
@@ -77,6 +126,7 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
 
 //-----[Main]-----\\
 //Used to run the Debug Console itself
+
 int main()
 {
     TestLog_Helper* TL = new TestLog_Helper();

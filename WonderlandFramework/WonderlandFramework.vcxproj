@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="ConsoleTest.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="PsuedoCode.txt" />
@@ -135,6 +136,7 @@
     <ClInclude Include="TestNotes_Helper.h" />
     <ClInclude Include="Test_Structs.h" />
     <ClInclude Include="Test_UI_Helper.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
