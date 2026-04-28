@@ -192,3 +192,32 @@ If CanOD is False...
 It will set Curr Health to Max Health then update the Character Ref HealthPercentage 
 If IsMedicine is False...
 It will set Curr Health to Max Health then update the Character Ref HealthPercentage 
+
+
+
+||-------------[Tick System]-------------||
+//-------------[Tick System Values]-------------//
+TickDelay
+TickSpeed
+CurrentTick
+
+//-------------[Tick Function]-------------//
+Looping Delay of TickDelay * TickSpeed
+At the end of the delay, update Tick and send an EventDispatcher of Sorts
+Everything with Tick Enabled gets an Update and acts accordingly
+
+//-------------[Tick AI]-------------//
+Every other Tick DecideToAttack Function which will then just cause basic attack functionality but synced to Tick
+When Attacked wait one Tick then DecideToHeal or not
+DecideToHeal based on HealthAmount and Consumable Type
+
+//-------------[Advanced Tick AI]-------------//
+Character an x,y vector
+They also get a Function to Get Character Location
+Then they will proceed to "move" to the character until in Attack Range(which will be added to the Character and modified by Weapon)
+Once in Range, THEN they can attack
+In the interim turn, the character can also choose to move out of the way or block rather than Heal
+
+//-------------[Advanced Tick Input]-------------//
+Each Tick Pauses for the Users input to move, heal, block, attack, or equip.
+It would call the same functions that the ConsoleTest has been using so far but by User Input.
