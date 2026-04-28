@@ -1,0 +1,18 @@
+2026-04-28 07:48:14
+
+I really need to add a
+fallback for expansions. I
+am missing VALUABLE notes
+here. That said, it was a
+resounding success. The
+only issue I was having
+was a static RNG
+Declaration was causing
+some issues with Undefined
+Behaviour. That said, it
+took some time but I
+solved it. Almost an hour
+annoyingly enough! But
+hey, all in a days work!
+
+

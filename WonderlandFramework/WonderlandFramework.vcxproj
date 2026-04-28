@@ -126,6 +126,7 @@
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="ConsoleTest.cpp" />
+    <ClCompile Include="Consumable.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="Armor.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Consumable.h" />
     <ClInclude Include="TestLog_Helper.h" />
     <ClInclude Include="TestNotes_Helper.h" />
     <ClInclude Include="Test_Structs.h" />
