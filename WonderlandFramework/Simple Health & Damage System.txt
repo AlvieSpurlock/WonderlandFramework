@@ -1,0 +1,17 @@
+2026-04-28 02:09:30
+
+For future tests I will
+actually make it only hit
+5 times each so that I can
+actually say success or
+failure rather than have
+it loop forever. That
+said, it works
+beautifully. Damage is
+applied and Death Function
+is properly called! Just
+need to work on creating
+better test environments
+in the future.
+
+

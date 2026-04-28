@@ -123,12 +123,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="ConsoleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="PsuedoCode.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character.h" />
     <ClInclude Include="TestLog_Helper.h" />
     <ClInclude Include="TestNotes_Helper.h" />
     <ClInclude Include="Test_Structs.h" />

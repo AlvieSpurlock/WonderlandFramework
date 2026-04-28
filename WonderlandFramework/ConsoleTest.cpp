@@ -4,6 +4,10 @@
 #include "TestLog_Helper.h"
 #include "TestNotes_Helper.h"
 #include "Test_UI_Helper.h"
+#include "Character.h"
+
+#include <thread>
+#include <chrono>
 
 
 //-----[User Unput Loop]-----\\
@@ -25,6 +29,22 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
         {
         case 0:
             UI->TestEnd(TL->Features[Choice]);
+            break;
+
+        case 1:
+            Character * Hero = new Character("Hero", 100, 7 + (rand() % (15 - 7 + 1)));
+            Character* Villain = new Character("Villain", 100, 7 + (rand() % (15 - 7 + 1)));
+            
+            bool LoopSwitch = true;
+            
+            while (Hero->GetCurrHealth() > 0 && Villain->GetCurrHealth() > 0)
+            {
+                if (LoopSwitch)
+                { Hero->Hit(Villain); }
+                else { Villain->Hit(Hero); }
+                LoopSwitch = !LoopSwitch;
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            } UI->TestEnd(TL->Features[Choice]);
             break;
         }
     }

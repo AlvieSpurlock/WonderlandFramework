@@ -1,3 +1,4 @@
+||-------------[Debug Console]-------------||
 //-------------[ConsoleTest.cpp]-------------//
 Order Of Function
 1. Give User List Of Available Features To Test
@@ -39,3 +40,31 @@ Order Of Function
 1. TestLog.csv Helper: Loads and Displays Feature Info, Saves to File
 2. Test Notes Helper: Loads and Displays Notes Text, Saves File to Proper Directory
 3. UI Helper: Makes UI
+
+
+
+||-------------[Basic Health & Damage System]-------------||
+//-------------[Character Values]-------------//
+Name
+MaxHealth
+CurrHealth
+HealthPercentage
+Damage
+
+//-------------[Damage System]-------------//
+[---{Hit Function}---]
+Takes Character Ref Parameter
+Takes Ref and Gets Health
+Subtracts calls take Damage Function with Damage Value in Param
+
+[---{Take Damage Function}---]
+Takes Damage Param
+Takes Health Value and subtracts it by Damage Param
+Checks if Health is Greater Than 0
+If so...
+It will Update Health Percentage by Divided Min Health by Max Health
+If not...
+It will call Death Function
+
+[---{Death Function}---]
+Prints to Console -- [Character Name] is DEAD!
