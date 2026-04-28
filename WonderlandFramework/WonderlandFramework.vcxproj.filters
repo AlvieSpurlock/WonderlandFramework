@@ -59,5 +59,11 @@
     <ClInclude Include="Consumable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Tick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="World_2D_Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

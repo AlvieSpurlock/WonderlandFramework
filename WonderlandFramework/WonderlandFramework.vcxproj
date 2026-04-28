@@ -140,7 +140,9 @@
     <ClInclude Include="TestNotes_Helper.h" />
     <ClInclude Include="Test_Structs.h" />
     <ClInclude Include="Test_UI_Helper.h" />
+    <ClInclude Include="Tick.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="World_2D_Grid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
