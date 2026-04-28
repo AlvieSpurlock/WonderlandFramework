@@ -27,9 +27,7 @@ Weapon::Weapon(const char* N, float Durability, float D, float F, bool II, bool 
 }
 
 Weapon::~Weapon()
-{
-	delete[] WeaponName;
-}
+{ delete[] WeaponName; }
 
 
 //-----[Mutators]-----\\
@@ -68,8 +66,8 @@ float Weapon::ApplyMulti(float BaseDamage, float DurabilityDamage)
 		if (!TotalDeduction)
 		{
 			static std::mt19937 RNG(std::random_device{}());
-			std::uniform_int_distribution<int> Dist(2, 5);
-			BaseDamage *= EffectiveDamageMulti / 2 + Dist(RNG);
+			std::uniform_real_distribution<float> Dist(2.0f, 5.0f);
+			BaseDamage *= EffectiveDamageMulti / 2.0f + Dist(RNG);
 		}
 		else 
 		{ 

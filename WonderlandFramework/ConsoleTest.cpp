@@ -6,6 +6,7 @@
 #include "Test_UI_Helper.h"
 #include "Character.h"
 #include "Weapon.h"
+#include "Armor.h"
 
 #include <thread>
 #include <chrono>
@@ -54,7 +55,7 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
         case 2:
         {
             static std::mt19937 wRNG(std::random_device{}());
-            std::uniform_int_distribution<float> wdDist(1.25f, 2.5f);
+            std::uniform_real_distribution<float> wdDist(1.25f, 2.5f);
             std::uniform_real_distribution<float> wfDist(0.1f, 1.25f);
 
             Weapon* HeroWeapon = new Weapon("Hero Weapon", 100, wdDist(wRNG), wfDist(wRNG), false, false, true, false, true);
@@ -71,17 +72,17 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
             {
                 if (Hero->GetCurrHealth() > 0 && Villain->GetCurrHealth() > 0)
                 {
-                    if (LoopSwitch) 
-                    { 
-                        Hero->Hit(Villain); 
+                    if (LoopSwitch)
+                    {
+                        Hero->Hit(Villain);
                         std::cout << "Hero Weapon Fragility: " << Hero->GetWeapon()->GetFragility() << "\n";
                     }
-                    else 
-                    { 
-                        Villain->Hit(Hero); 
-                        std::cout << "Villain Weapon Fragility: " << Hero->GetWeapon()->GetFragility() << "\n";
+                    else
+                    {
+                        Villain->Hit(Hero);
+                        std::cout << "Villain Weapon Fragility: " << Villain->GetWeapon()->GetFragility() << "\n";
                     }
-                    
+
                     LoopSwitch = !LoopSwitch;
                     std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 }
@@ -93,6 +94,57 @@ void UserInputLoop(TestLog_Helper* TL, TestNotes_Helper* TN, Test_UI_Helper* UI)
             delete Villain;
             delete HeroWeapon;
             delete VillainWeapon;
+            break;
+        }
+        case 3:
+        {
+            static std::mt19937 wRNG(std::random_device{}());
+            std::uniform_real_distribution<float> wdDist(1.25f, 2.5f);
+            std::uniform_real_distribution<float> wfDist(0.1f, 1.25f);
+
+            Weapon* HeroWeapon = new Weapon("Hero Weapon", 100, wdDist(wRNG), wfDist(wRNG), false, false, true, false, true);
+            Weapon* VillainWeapon = new Weapon("Villain Weapon", 100, wdDist(wRNG), wfDist(wRNG), false, false, true, false, true);
+
+            Armor* HeroArmor = new Armor("Hero Armor", 100, wdDist(wRNG), wfDist(wRNG), false, false, true, false, true);
+            Armor* VillainArmor = new Armor("Villain Armor", 100, wdDist(wRNG), wfDist(wRNG), false, false, true, false, true);
+
+            static std::mt19937 RNG(std::random_device{}());
+            std::uniform_int_distribution<int> Dist(7, 15);
+
+            CombatCharacter* Hero = new CombatCharacter("Hero", 100, Dist(RNG), *HeroWeapon, HeroArmor);
+            CombatCharacter* Villain = new CombatCharacter("Villain", 100, Dist(RNG), *VillainWeapon, VillainArmor);
+
+            bool LoopSwitch = true;
+            for (size_t index = 0; index < 3; ++index)
+            {
+                if (Hero->GetCurrHealth() > 0 && Villain->GetCurrHealth() > 0)
+                {
+                    if (LoopSwitch)
+                    {
+                        Hero->Hit(Villain);
+                        std::cout << "Hero Weapon Fragility: " << Hero->GetWeapon()->GetFragility() << "\n";
+                        std::cout << "Hero Armor Fragility: " << Hero->GetArmor()->GetFragility() << "\n";
+                    }
+                    else
+                    {
+                        Villain->Hit(Hero);
+                        std::cout << "Villain Weapon Fragility: " << Villain->GetWeapon()->GetFragility() << "\n";
+                        std::cout << "Villain Armor Fragility: " << Villain->GetArmor()->GetFragility() << "\n";
+                    }
+
+                    LoopSwitch = !LoopSwitch;
+                    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                }
+            }
+
+            UI->TestEnd(TL->Features[Choice]);
+            TL->SaveTestLog(TL->Features[Choice]);
+            delete Hero;
+            delete Villain;
+            delete HeroWeapon;
+            delete VillainWeapon;
+            delete HeroArmor;
+            delete VillainArmor;
             break;
         }
         }
