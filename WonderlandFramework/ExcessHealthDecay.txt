@@ -1,0 +1,19 @@
+2026-04-28 18:29:54
+
+Not due to decay but due
+to excess adding itself.
+Might be a syntax error.
+Still a failure. Looking
+into it.
+
+
+2026-04-28 18:34:09
+
+It WAS a Syntax Error,
+also a Human Error. I
+forgot that the Consumable
+Heal Function only applied
+Surplus if it is medicine 
+and originally, it wasn't.
+That said, FIXED IT!
+

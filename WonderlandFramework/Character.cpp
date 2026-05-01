@@ -129,20 +129,29 @@ void CombatCharacter::DecideToHeal()
     }
 }
 void CombatCharacter::DecideToAttack(Character* Target, int CurrentTick)
-{
-    if (CurrentTick % 2 == 0)
-    {
-        std::cout << GetName() << " Attacking!\n";
-        Hit(Target);
-    }
+{ 
+    //OVERRIDE!
 }
 
 
+//====={Advanced Combat Character}=====\\
+
+void AdvancedCombatCharacter::OnTick(int CurrentTick, AdvancedCombatCharacter* Target)
+{
+    // Base implementation — do nothing
+}
+
 //====={AI Character}=====\\
 
-void AICharacter::OnTick(int CurrentTick, Character* Target)
+void AICharacter::OnTick(int CurrentTick, AdvancedCombatCharacter* Target)
 {
     if (GetCurrHealth() <= 0) { return; }
+    if (GetCurrHealth() > GetMaxHealth() && GetConsumable() != nullptr && GetConsumable()->GetIsDecay())
+    {
+        SetCurrHealth(std::max(GetMaxHealth(), GetCurrHealth() - GetConsumable()->GetDecayRate()));
+    }
+    std::cout << GetName() << " Health: " << GetCurrHealth() << "(" << GetHealthPercentage() << ")"
+        << " | Consumable: " << (GetConsumable() != nullptr ? GetConsumable()->QuantityPercentage() : 0.0f) << "\n";
     if (GetWasHitLastTick())
     {
         SetWasHitLastTick(false);
@@ -151,15 +160,27 @@ void AICharacter::OnTick(int CurrentTick, Character* Target)
     }
     else
     {
-        DecideToAttack(Target, CurrentTick);
+        std::vector<int> Curr = GetLocation();
+        std::vector<int> TargetLoc = Target->GetLocation();
+        bool InRange = abs(Curr[0] - TargetLoc[0]) <= GetBaseRange() &&
+            abs(Curr[1] - TargetLoc[1]) <= GetBaseRange();
+        if (!InRange)
+        {
+            std::cout << GetName() << " Moving Toward Target\n";
+            MoveTo(TargetLoc);
+        }
+        else { DecideToAttack(Target, CurrentTick); }
     }
 }
 
-
 //====={Player Character}=====\\
 
-void PlayerCharacter::OnTick(int CurrentTick, Character* Target)
+void PlayerCharacter::OnTick(int CurrentTick, AdvancedCombatCharacter* Target)
 {
     if (GetCurrHealth() <= 0) { return; }
+    if (GetCurrHealth() > GetMaxHealth() && GetConsumable() != nullptr && GetConsumable()->GetIsDecay())
+    {
+        SetCurrHealth(std::max(GetMaxHealth(), GetCurrHealth() - GetConsumable()->GetDecayRate()));
+    }
     // Player input handled here
 }

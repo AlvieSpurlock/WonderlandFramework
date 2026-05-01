@@ -221,3 +221,4 @@ In the interim turn, the character can also choose to move out of the way or blo
 //-------------[Advanced Tick Input]-------------//
 Each Tick Pauses for the Users input to move, heal, block, attack, or equip.
 It would call the same functions that the ConsoleTest has been using so far but by User Input.
+

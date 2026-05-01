@@ -1,0 +1,4 @@
+CHARACTERS
+Hero,4,0
+Villain,6,0
+TILES

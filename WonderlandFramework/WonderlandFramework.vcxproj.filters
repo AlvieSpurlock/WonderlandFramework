@@ -30,6 +30,9 @@
     <ClCompile Include="Consumable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StatusEffects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="PsuedoCode.txt" />
@@ -62,7 +65,10 @@
     <ClInclude Include="Tick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="World_2D_Grid.h">
+    <ClInclude Include="StatusEffects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Test_Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

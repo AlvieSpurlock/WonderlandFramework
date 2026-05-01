@@ -9,6 +9,7 @@ Consumable::Consumable(const char* CN, int Q, float HA, bool IM, bool COD, bool 
     ConsumableName = new char[Len];
     strcpy_s(ConsumableName, Len, CN);
     Quantity = Q;
+    MaxQuantity = Q;
     HealAmount = HA;
     IsMedicine = IM;
     CanOD = COD;
@@ -70,6 +71,7 @@ bool Consumable::Heal(float& CurrHealth, float MaxHealth)
                 }
                 else
                 {
+                    DecayRate = ((CurrHealth + HealAmount) - MaxHealth) / 10;
                     CurrHealth += HealAmount;
                     std::cout << ConsumableName << " Surplus Heal! Health at " << CurrHealth << "!\n";
                 }
